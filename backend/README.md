@@ -529,6 +529,15 @@ uvicorn app.main:app --reload --port 1234
 Open http://127.0.0.1:1234/docs in your browser. FastAPI generates a full interactive UI
 for every endpoint. You can try every route from this page without writing any code.
 
+**About `school.db`:**
+
+On first run, `main.py` calls `Base.metadata.create_all()` which creates `school.db` and
+all tables automatically. On every subsequent run, SQLAlchemy sees the file already exists
+and leaves it — and all its data — untouched. You only lose data if you manually delete
+`school.db`, which is useful when you want a clean slate. This is also why `school.db` is
+in `.gitignore`: it is a runtime artifact that changes with every insert/update/delete, so
+committing it would add noise with no value.
+
 **Running tests:**
 
 ```bash
