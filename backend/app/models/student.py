@@ -5,6 +5,8 @@ The `course_id` foreign key is how the DB enforces the relationship:
 you can't create a student pointing to a course that doesn't exist.
 """
 
+from typing import List
+
 from sqlalchemy import ForeignKey, Integer, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
@@ -20,6 +22,7 @@ class Student(Base):
     course_id: Mapped[int] = mapped_column(ForeignKey("courses.id"), nullable=False)
 
     course: Mapped["Course"] = relationship("Course", back_populates="students")
+    grades: Mapped[List["Grade"]] = relationship("Grade", back_populates="student", cascade="all, delete-orphan")
 
     def __repr__(self) -> str:
         return f"<Student id={self.id} name={self.name!r}>"

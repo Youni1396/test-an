@@ -18,7 +18,7 @@ from app.database import Base, engine
 # Importing the models package registers every model class with Base.metadata
 # so create_all() knows which tables to create.
 from app import models  # noqa: F401
-from app.routes import teachers, courses, students
+from app.routes import teachers, courses, students, grades
 
 
 def create_app() -> FastAPI:
@@ -35,6 +35,7 @@ def create_app() -> FastAPI:
     app.include_router(teachers.router)
     app.include_router(courses.router)
     app.include_router(students.router)
+    app.include_router(grades.router)
 
     @app.get("/", tags=["root"])
     def root():
